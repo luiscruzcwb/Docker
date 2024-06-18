@@ -1,0 +1,19 @@
+# config file version
+#piVersion: 1
+# whats available in the database
+# list of datasources to insert/update depending
+# whats available in the database
+#atasources:
+# - name: InfluxDB
+# <string, required> datasource type. Required
+#   type: influxdb
+# <string, required> access mode. direct or proxy. Required
+#   access: proxy
+# <string> database name, if used
+#   database: pve
+#   user: user-influxdb
+#   password: pwd-influxdb
+#   url: http://influxdb:8086
+#   isDefault: true
+# <bool> allow users to edit datasources from the UI.
+#   editable: true

@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  apache:
+    image: httpd:latest
+    container_name: my-apache-app
+    ports: #PortaLocal-PortaDoContainer
+    - '80:80'
+    volumes: #PastaLocal-PastaNoContainer
+    - ./website:/usr/local/apache2/htdocs
+

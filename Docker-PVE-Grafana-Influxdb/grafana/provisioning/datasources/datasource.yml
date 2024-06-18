@@ -1,0 +1,14 @@
+# config file version
+apiVersion: 1
+# whats available in the database
+datasources:
+# <string, required> name of the datasource. Required
+  - name: InfluxDB
+    type: influxdb
+    access: proxy
+    database: pve
+    user: influxdbuser
+    password: influxdbpwd
+    url: http://influxdb:8086
+    isDefault: true
+    editable: true

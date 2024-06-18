@@ -1,0 +1,49 @@
+version: '2'
+
+services:
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - '8086:8086'
+      - '8089:8089/udp'
+    volumes:
+      - influxdb-volume:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=pve
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+      - INFLUXDB_UDP_ENABLED=true
+      - INFLUXDB_UDP_DATABASE=proxmox
+      - INFLUXDB_UDP_0_BATCH_SIZE=1000
+      - INFLUXDB_UDP_0_BATCH_PENDING=10s
+      # - INFLUXDB_INIT_MODE=setup
+      # - INFLUXDB_INIT_USERNAME=${INFLUXDB_USERNAME}s
+      # - INFLUXDB_INIT_PASSWORD=${INFLUXDB_PASSWORD}
+      # - INFLUXDB_INIT_ORG=proxmox
+      # - INFLUXDB_INIT_BUCKET=proxmox-bucket
+      # Duration for the initial bucket’s retention period. If not set, the initial bucket will retain data forever.
+      # - INFLUXDB_INIT_RETENTION=1
+      # API token to associate with the admin user. If not set, InfluxDB automatically generates a token.
+      # - INFLUXDB_INIT_ADMIN_TOKEN=my-super-secret-auth-token
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-volume:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning
+    depends_on:
+      - influxdb
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+
+volumes:
+  influxdb-volume:
+  grafana-volume:
+

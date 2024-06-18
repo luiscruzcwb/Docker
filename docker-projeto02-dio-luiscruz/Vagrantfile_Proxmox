@@ -1,0 +1,54 @@
+#https://github.com/telcat/vagrant-proxmox
+
+#Container
+
+Vagrant.configure('2') do |config|
+
+    config.vm.provider :proxmox do |proxmox|
+        proxmox.endpoint = 'https://pve.lan:8006/api2/json'
+        proxmox.user_name = 'root@pam'
+        proxmox.password = 'proxmox_password'
+        proxmox.vm_id_range = 900..910
+        proxmox.vm_name_prefix = 'vagrant_'
+        proxmox.openvz_os_template = 'local:vztmpl/vagrant-proxmox-ubuntu-12.tar.gz'
+        proxmox.vm_type = :openvz
+        proxmox.vm_memory = 256
+    end
+    
+    config.vm.define :box, primary: true do |box|
+        box.vm.box = 'dummy'
+        box.vm.network :public_network, ip: '192.168.100.1'
+    end
+    
+end
+
+
+#KVM
+
+Vagrant.configure('2') do |config|
+
+    config.vm.provider :proxmox do |proxmox|
+        proxmox.endpoint = 'https://pve.lan:8006/api2/json'
+        proxmox.user_name = 'vagrant'
+        proxmox.password = 'proxmox_password'
+        proxmox.vm_id_range = 900..910
+        proxmox.vm_type = :qemu
+        proxmox.vm_name_prefix = 'vagrant_'
+        proxmox.qemu_os = :l26
+        proxmox.qemu_disk_size = '30G'
+        proxmox.qemu_storage = 'local'
+        proxmox.qemu_iso_file = '/home/user/system.iso'
+        proxmox.vm_name_prefix = 'vagrant_test_'
+        proxmox.qemu_cores = 1
+        proxmox.qemu_sockets = 1
+        proxmox.qemu_nic_model = 'virtio'
+        proxmox.qemu_bridge = 'vmbr0'
+        proxmox.vm_memory = 512
+    end
+
+    config.vm.define :box, primary: true do |box|
+        box.vm.box = 'dummy'
+        box.vm.network :public_network, ip: '192.168.100.1', macaddress: 'ff:aa:cc:dd:bb:ee'
+    end
+
+end
