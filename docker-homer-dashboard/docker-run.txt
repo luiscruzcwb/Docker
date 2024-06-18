@@ -1,0 +1,1 @@
+docker run -d -p 8080:8080 --name=homer --restart=always -v "C:\Users\luisc\OneDrive\homer-dashboard:/www/assets" b4bz/homer:latest

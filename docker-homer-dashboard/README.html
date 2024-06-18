@@ -1,0 +1,26 @@
+#Meu Dashboard
+
+<p><strong>Projeto original:</strong> <a href="https://github.com/bastienwirtz/homer" target="_blank">https://github.com/bastienwirtz/homer</a></p>
+
+```yaml
+version: "2"
+services:
+  homer:
+    image: b4bz/homer
+    #To build from source, comment previous line and uncomment below
+    #build: .
+    container_name: homer
+    volumes:
+    #  - /docker:/www/assets
+       - /github-projetos/homer-dashboard:/www/assets
+    ports:
+      - 8080:8080
+    #environment:
+    #  - UID=1000
+    #  - GID=1000
+    restart: unless-stopped
+```
+
+<p><strong><img style="float: left;" src="https://raw.githubusercontent.com/bastienwirtz/homer/main/public/logo.png" alt="" width="50" height="50" /></strong></p>
+
+:)
