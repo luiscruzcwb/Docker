@@ -1,11 +1,15 @@
 Para usar este repositório, clone-o em seu host Docker, navegue até o diretório "prometheus-windows-exporter" e execute o comando "docker-compose up -d".
 
 ```
-git clone https://github.com/luiscruzcwb/Docker/docker-prometheus-windows-exporter
+gh repo clone luiscruzcwb/Docker
 ```
-Navegue até a pasta _**prometheus-windows-exporter**_
+Navegue até a pasta _**docker-prometheus-windows-exporter**_
 ```
-cd /prometheus-windows-exporter
+cd /docker-prometheus-windows-exporter
+```
+Execute o docker compose
+```
+docker compose up -d
 ```
 
 ## Configurando o Host
@@ -23,14 +27,15 @@ Inclua na sessão ***## Hosts OS Windows / Windows Servers*** os seus hosts de c
         scrape_interval: 10s
         static_configs:
           - targets: ['IP-Host:9182']
-          
-Recomendo criar uma entrada para cada Host, caso contrario, basta separa os hosts dessa forma: ***['IP-Host1:9182'],['IP-Host2:9182']***
+
+**Dica**          
+> Recomendo criar uma entrada para cada Host, ou caso contrario, basta separa os hosts dessa forma: ***['IP-Host1:9182'],['IP-Host2:9182']***
 
 
 ## Host - Downloading Windows Exporter
-Para baixar o Prometheus Windows Exporter, acesse a página do [GitHub](https://github.com/prometheus-community/windows_exporter) da comunidade.
+Para baixar o **Prometheus Windows Exporter**, acesse a página do [GitHub](https://github.com/prometheus-community/windows_exporter) da comunidade.
 
-Faça o download da versão mais recente (v0.22.0 no momento) do Windows Exporter na seção "Releases".
+Faça o download da versão mais recente **(v0.22.0 no momento)** do Windows Exporter na seção "Releases".
 
 Se você estiver usando uma **versão de 32 bits** do sistema operacional Windows, clique no link **_windows_exporter-*-386.msi._**
 
