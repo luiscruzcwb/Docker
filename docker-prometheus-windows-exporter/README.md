@@ -1,7 +1,7 @@
 Para usar este repositório, clone-o em seu host Docker, navegue até o diretório "prometheus-windows-exporter" e execute o comando "docker-compose up -d".
 
 ```
-git clone https://github.com/luiscruzcwb/prometheus-windows-exporter
+git clone https://github.com/luiscruzcwb/Docker/docker-prometheus-windows-exporter
 ```
 Navegue até a pasta _**prometheus-windows-exporter**_
 ```
