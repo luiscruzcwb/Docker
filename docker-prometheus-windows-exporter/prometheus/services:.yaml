@@ -1,13 +1,6 @@
-# Compose Specification (sem necessidade de versão explícita)
-
-volumes:
-  prometheus_data: {}
-  grafana_data: {}
-
 services:
-
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.45.0
     container_name: prometheus
     restart: always
     volumes:
@@ -22,10 +15,9 @@ services:
       - 9090:9090
     depends_on:
       - cadvisor
-      - alertmanager
 
   node-exporter:
-    image: prom/node-exporter:latest
+    image: prom/node-exporter:v1.7.0
     container_name: node-exporter
     volumes:
       - /proc:/host/proc:ro
@@ -43,7 +35,7 @@ services:
       mode: global
 
   alertmanager:
-    image: prom/alertmanager:latest
+    image: prom/alertmanager:v0.28.0
     container_name: alertmanager
     restart: always
     ports:
@@ -55,7 +47,7 @@ services:
       - '--storage.path=/alertmanager'
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
+    image: icr.io/ibmz/cadvisor:0.49.1
     container_name: cadvisor
     volumes:
       - /:/rootfs:ro
@@ -69,15 +61,15 @@ services:
       mode: global
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:10.2.3
     container_name: grafana
     user: '472'
     restart: always
     environment:
       GF_INSTALL_PLUGINS: 'grafana-clock-panel,grafana-simple-json-datasource,grafana-strava-datasource'
       GF_FEATURE_TOGGLES_ENABLE: 'externalServiceAccounts'
-      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER:-admin}
-      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning/:/etc/grafana/provisioning/
@@ -87,3 +79,7 @@ services:
       - 3000:3000
     depends_on:
       - prometheus
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}

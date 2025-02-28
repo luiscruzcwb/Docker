@@ -75,10 +75,18 @@ scrape_configs:
 
 ## Hosts OS Windows / Windows Servers
 
-# Windows 11 - Home Lab
+# Windows 11 - Localhost
   - job_name: 'hostname' 
     static_configs:
-      - targets: ['192.168.100.23:9182']
+      - targets: ['192.168.18.10:9182']
+
+
+## SpeedTest
+  - job_name: 'speedtest-exporter'
+    scrape_interval: 5m
+    scrape_timeout: 1m
+    static_configs:
+         - targets: ['172.29.90.110:9798']
 
 
 
